@@ -63,7 +63,7 @@
 
         canvas.width = plate.width;
         canvas.height = plate.height;
-        image.drawImage(img, 0, 0);
+        image.drawImage(plate, 0, 0);
 
         data = image.getImageData(0, 0, canvas.width, canvas.height);
         subpixels = data.data;
@@ -85,9 +85,9 @@
         var canvas = document.createElement('canvas');
         var image = canvas.getContext('2d');
 
-        canvas.width = img.width;
-        canvas.height = img.height;
-        image.drawImage(img, 0, 0);
+        canvas.width = plate.width;
+        canvas.height = plate.height;
+        image.drawImage(plate, 0, 0);
 
         data = image.getImageData(0, 0, canvas.width, canvas.height);
         subpixels = data.data;
