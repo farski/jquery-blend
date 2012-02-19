@@ -42,13 +42,13 @@
       var $t = $(this);
 
       if ('getContext' in document.createElement('canvas')) {
-        var input = new Image;
-        input.src = $t.attr('src');
+        var plate = new Image;
+        plate.src = $t.attr('src');
         
         if (options.input.match(/^rgb/)) {
-          input.onload = applyRGBAValue;
+          plate.onload = applyRGBAValue;
         } else {
-          input.onload = applyImage;
+          plate.onload = applyImage;
         }
       }
 
@@ -61,9 +61,9 @@
         var canvas = document.createElement('canvas');
         var image = canvas.getContext('2d');
 
-        canvas.width = input.width;
-        canvas.height = input.height;
-        image.drawImage(input, 0, 0);
+        canvas.width = plate.width;
+        canvas.height = plate.height;
+        image.drawImage(plate, 0, 0);
 
         data = image.getImageData(0, 0, canvas.width, canvas.height);
         subpixels = data.data;
@@ -85,20 +85,28 @@
         var canvas = document.createElement('canvas');
         var image = canvas.getContext('2d');
 
-        canvas.width = input.width;
-        canvas.height = input.height;
-        image.drawImage(input, 0, 0);
+        canvas.width = plate.width;
+        canvas.height = plate.height;
+        image.drawImage(plate, 0, 0);
 
         data = image.getImageData(0, 0, canvas.width, canvas.height);
         subpixels = data.data;
+
+        var adj_canvas = document.createElement('canvas');
+        var adj_image = adj_canvas.getContext('2d');
+        adj_image_src = new Image;
+        adj_image_src.src = options.input;
+        adj_image.drawImage(adj_image_src, 0, 0);
+        adj_data = adj_image.getImageData(0, 0, canvas.width, canvas.height);
+        adj_subpixels = adj_data.data;
 
         var m = options.mode;
         var a = options.opacity;
         var z = 1 - a;
         for(var i = 0, l = subpixels.length; i < l; i += 4) {
-          subpixels[i+0] = blenders[m](subpixels[i+0], subpixels[i+0]) * a + subpixels[i+0] * z;
-          subpixels[i+1] = blenders[m](subpixels[i+1], subpixels[i+1]) * a + subpixels[i+1] * z;
-          subpixels[i+2] = blenders[m](subpixels[i+2], subpixels[i+2]) * a + subpixels[i+2] * z;
+          subpixels[i+0] = blenders[m](subpixels[i+0], adj_subpixels[i+0]);
+          subpixels[i+1] = blenders[m](subpixels[i+1], adj_subpixels[i+1]);
+          subpixels[i+2] = blenders[m](subpixels[i+2], adj_subpixels[i+2]);
         }
 
         image.putImageData(data, 0, 0);
