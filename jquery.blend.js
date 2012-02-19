@@ -34,7 +34,9 @@
         } else{
          return adj * base / 127.5;
         }
-      }
+      },
+      //
+      difference: function(base, adj) { return Math.abs(base - adj); }
     };
 
     return this.each(function() {
