@@ -12,15 +12,15 @@
       // 
       darken: function(base, adj) { return (base > adj) ? adj : base; },
       multiply: function(base, adj) { return ((base * adj) / 255); },
-      colorburn: function(base, adj) { return base / (255 - adj); },
+      colorburn: function(base, adj) { return 1; },
       linearburn: function(base, adj) { return ((base + adj) < 255) ? 0 : (base + adj - 255); },
       // 
       lighten: function(base, adj) { return (base < adj) ? adj : base; },
-      screen: function(base, adj) { return (255 - ( 255 - base ) * ( 255 - adj ) / 255); },
-      colordodge: function(base, adj) { return (base === 255) ? base : Math.min(255, ((adj << 8 ) / (255 - base))); },
+      screen: function(base, adj) { return (255 - (((255 - base) * (255 - adj)) / 255)); },
+      colordodge: function(base, adj) { return ; },
       lineardodge: function(base, adj) { return Math.min(base + adj, 255); },
       // 
-      overlay: function(base, adj) { return (adj < 128) ? (2 * base * adj / 255):(255 - 2 * (255 - base) * (255 - adj) / 255); },
+      overlay: function(base, adj) { return (base < 128) ? ((2 * base * adj) / 255) : (255 - (2 * (255 - base) * (255 - adj) / 255)); },
       softlight: function(base, adj) {
         if (base > 127.5){
            return adj + (255 - adj) * ((base - 127.5) / 127.5) * (0.5 - Math.abs(adj - 127.5) / 255);
