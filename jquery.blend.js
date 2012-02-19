@@ -48,7 +48,7 @@
         if (options.input.match(/^rgb/)) {
           input.onload = applyRGBAValue;
         } else {
-          input.onload = applyImage;
+          // input.onload = applyImage;
         }
       }
 
@@ -92,13 +92,15 @@
         data = image.getImageData(0, 0, canvas.width, canvas.height);
         subpixels = data.data;
 
+        adjustment_image = 
+
         var m = options.mode;
         var a = options.opacity;
         var z = 1 - a;
         for(var i = 0, l = subpixels.length; i < l; i += 4) {
-          subpixels[i+0] = blenders[m](subpixels[i+0], subpixels[i+0]) * a + subpixels[i+0] * z;
-          subpixels[i+1] = blenders[m](subpixels[i+1], subpixels[i+1]) * a + subpixels[i+1] * z;
-          subpixels[i+2] = blenders[m](subpixels[i+2], subpixels[i+2]) * a + subpixels[i+2] * z;
+          subpixels[i+0] = blenders[m](subpixels[i+0], subpixels[i+0]);
+          subpixels[i+1] = blenders[m](subpixels[i+1], subpixels[i+1]);
+          subpixels[i+2] = blenders[m](subpixels[i+2], subpixels[i+2]);
         }
 
         image.putImageData(data, 0, 0);
