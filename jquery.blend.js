@@ -92,9 +92,12 @@
         data = image.getImageData(0, 0, canvas.width, canvas.height);
         subpixels = data.data;
 
-        adjustment_image = new Image;
-        adjustment_image.src = options.input;
-        adj_data = adjustment_image.getImageData(0, 0, canvas.width, canvas.height);
+        var adj_canvas = document.createElement('canvas');
+        var adj_image = adj_canvas.getContext('2d');
+        adj_image_src = new Image;
+        adj_image_src.src = options.input;
+        adj_image.drawImage(adj_image_src, 0, 0);
+        adj_data = adj_image.getImageData(0, 0, canvas.width, canvas.height);
         adj_subpixels = adj_data.data;
 
         var m = options.mode;
