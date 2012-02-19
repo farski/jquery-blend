@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <title>Blend modes</title>
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'></script>
+    <script src='https://raw.github.com/farski/jquery-blend/master/jquery.blend.js'></script>
+    <script>
+      $(function() {
+        $('img').each(function() {
+          $(this).blend({mode: $(this).attr('data-blend-mode'), input: $(this).attr('data-blend-adjustment')});
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <table>
+      <thead>
+        <tr>
+          <th>Mode</th>
+          <th>White</th>
+          <th>Grey</th>
+          <th>Black</th>
+          <th>rgb(50,100,200)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Normal</td>
+          <td colspan=4><img src="/bailey.jpg" /></td>
+        </tr>
+        <tr>
+          <td>Normal</td>
+          <td><img src="/bailey.jpg" data-blend-mode='normal' data-blend-adjustment='rgb(255,255,255)' /></td>
+          <td><img src="/bailey.jpg" data-blend-mode='normal' data-blend-adjustment='rgb(128,128,128)' /></td>
+          <td><img src="/bailey.jpg" data-blend-mode='normal' data-blend-adjustment='rgb(0,0,0)' /></td>
+          <td><img src="/bailey.jpg" data-blend-mode='normal' data-blend-adjustment='rgb(50,100,200)' /></td>
+        </tr>
+        <tr>
+          <td>Darken</td>
+          <td><img src="/bailey.jpg" data-blend-mode='darken' data-blend-adjustment='rgb(255,255,255)' /></td>
+          <td><img src="/bailey.jpg" data-blend-mode='darken' data-blend-adjustment='rgb(128,128,128)' /></td>
+          <td><img src="/bailey.jpg" data-blend-mode='darken' data-blend-adjustment='rgb(0,0,0)' /></td>
+          <td><img src="/bailey.jpg" data-blend-mode='darken' data-blend-adjustment='rgb(50,100,200)' /></td>
+        </tr>
+        <tr>
+          <td>Multiply</td>
+          <td><img src="/bailey.jpg" data-blend-mode='multiply' data-blend-adjustment='rgb(255,255,255)' /></td>
+          <td><img src="/bailey.jpg" data-blend-mode='multiply' data-blend-adjustment='rgb(128,128,128)' /></td>
+          <td><img src="/bailey.jpg" data-blend-mode='multiply' data-blend-adjustment='rgb(0,0,0)' /></td>
+          <td><img src="/bailey.jpg" data-blend-mode='multiply' data-blend-adjustment='rgb(50,100,200)' /></td>
+        </tr>
+        <tr>
+          <td>Color burn</td>
+          <td><img src="/bailey.jpg" data-blend-mode='colorburn' data-blend-adjustment='rgb(255,255,255)' /></td>
+          <td><img src="/bailey.jpg" data-blend-mode='colorburn' data-blend-adjustment='rgb(128,128,128)' /></td>
+          <td><img src="/bailey.jpg" data-blend-mode='colorburn' data-blend-adjustment='rgb(0,0,0)' /></td>
+          <td><img src="/bailey.jpg" data-blend-mode='colorburn' data-blend-adjustment='rgb(50,100,200)' /></td>
+        </tr>
+        <tr>
+          <td>Linear burn</td>
+          <td><img src="/bailey.jpg" data-blend-mode='linearburn' data-blend-adjustment='rgb(255,255,255)' /></td>
+          <td><img src="/bailey.jpg" data-blend-mode='linearburn' data-blend-adjustment='rgb(128,128,128)' /></td>
+          <td><img src="/bailey.jpg" data-blend-mode='linearburn' data-blend-adjustment='rgb(0,0,0)' /></td>
+          <td><img src="/bailey.jpg" data-blend-mode='linearburn' data-blend-adjustment='rgb(50,100,200)' /></td>
+        </tr>
+        <tr>
+          <td>Lighten</td>
+          <td><img src="/bailey.jpg" data-blend-mode='lighten' data-blend-adjustment='rgb(255,255,255)' /></td>
+          <td><img src="/bailey.jpg" data-blend-mode='lighten' data-blend-adjustment='rgb(128,128,128)' /></td>
+          <td><img src="/bailey.jpg" data-blend-mode='lighten' data-blend-adjustment='rgb(0,0,0)' /></td>
+          <td><img src="/bailey.jpg" data-blend-mode='lighten' data-blend-adjustment='rgb(50,100,200)' /></td>
+        </tr>
+        <tr>
+          <td>Screen</td>
+          <td><img src="/bailey.jpg" data-blend-mode='screen' data-blend-adjustment='rgb(255,255,255)' /></td>
+          <td><img src="/bailey.jpg" data-blend-mode='screen' data-blend-adjustment='rgb(128,128,128)' /></td>
+          <td><img src="/bailey.jpg" data-blend-mode='screen' data-blend-adjustment='rgb(0,0,0)' /></td>
+          <td><img src="/bailey.jpg" data-blend-mode='screen' data-blend-adjustment='rgb(50,100,200)' /></td>
+        </tr>
+        <tr>
+          <td>Color dodge</td>
+          <td><img src="/bailey.jpg" data-blend-mode='colordodge' data-blend-adjustment='rgb(255,255,255)' /></td>
+          <td><img src="/bailey.jpg" data-blend-mode='colordodge' data-blend-adjustment='rgb(128,128,128)' /></td>
+          <td><img src="/bailey.jpg" data-blend-mode='colordodge' data-blend-adjustment='rgb(0,0,0)' /></td>
+          <td><img src="/bailey.jpg" data-blend-mode='colordodge' data-blend-adjustment='rgb(50,100,200)' /></td>
+        </tr>
+        <tr>
+          <td>Linear dodge</td>
+          <td><img src="/bailey.jpg" data-blend-mode='lineardodge' data-blend-adjustment='rgb(255,255,255)' /></td>
+          <td><img src="/bailey.jpg" data-blend-mode='lineardodge' data-blend-adjustment='rgb(128,128,128)' /></td>
+          <td><img src="/bailey.jpg" data-blend-mode='lineardodge' data-blend-adjustment='rgb(0,0,0)' /></td>
+          <td><img src="/bailey.jpg" data-blend-mode='lineardodge' data-blend-adjustment='rgb(50,100,200)' /></td>
+        </tr>
+        <tr>
+          <td>Overlay</td>
+          <td><img src="/bailey.jpg" data-blend-mode='overlay' data-blend-adjustment='rgb(255,255,255)' /></td>
+          <td><img src="/bailey.jpg" data-blend-mode='overlay' data-blend-adjustment='rgb(128,128,128)' /></td>
+          <td><img src="/bailey.jpg" data-blend-mode='overlay' data-blend-adjustment='rgb(0,0,0)' /></td>
+          <td><img src="/bailey.jpg" data-blend-mode='overlay' data-blend-adjustment='rgb(50,100,200)' /></td>
+        </tr>
+        <tr>
+          <td>Soft light</td>
+          <td><img src="/bailey.jpg" data-blend-mode='softlight' data-blend-adjustment='rgb(255,255,255)' /></td>
+          <td><img src="/bailey.jpg" data-blend-mode='softlight' data-blend-adjustment='rgb(128,128,128)' /></td>
+          <td><img src="/bailey.jpg" data-blend-mode='softlight' data-blend-adjustment='rgb(0,0,0)' /></td>
+          <td><img src="/bailey.jpg" data-blend-mode='softlight' data-blend-adjustment='rgb(50,100,200)' /></td>
+        </tr>
+        <tr>
+          <td>Hard light</td>
+          <td><img src="/bailey.jpg" data-blend-mode='hardlight' data-blend-adjustment='rgb(255,255,255)' /></td>
+          <td><img src="/bailey.jpg" data-blend-mode='hardlight' data-blend-adjustment='rgb(128,128,128)' /></td>
+          <td><img src="/bailey.jpg" data-blend-mode='hardlight' data-blend-adjustment='rgb(0,0,0)' /></td>
+          <td><img src="/bailey.jpg" data-blend-mode='hardlight' data-blend-adjustment='rgb(50,100,200)' /></td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>
