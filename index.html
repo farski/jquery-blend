@@ -7,7 +7,7 @@
     <script>
       $(function() {
         $('img').each(function() {
-          $(this).blend({mode: $(this).attr('data-blend-mode'), input: $(this).attr('data-blend-adjustment')});
+          $(this).blend({mode: $(this).attr('data-blend-mode'), adjustment: $(this).attr('data-blend-adjustment')});
         });
       });
     </script>
@@ -18,10 +18,10 @@
     <p style="margin: 65px 0 0 100px;">Apply blending to an image. The adjustment "layer" can be either an image, or a solid color</p>
 
     <pre>
-      $('.color').blend(mode: 'overlay', input: 'rgb(67, 94, 213)');
+      $('.color').blend(mode: 'overlay', adjustment: 'rgb(67, 94, 213)');
       img src="image.jpg" class="color"
       
-      $('.image').blend(mode: 'overlay', input: 'otherimage.jpg');
+      $('.image').blend(mode: 'overlay', adjustment: 'otherimage.jpg');
       img src="image.jpg" class="image"
     </pre>
 
