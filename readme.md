@@ -8,3 +8,21 @@ Blending modes for jquery
     $('img').blend({mode: 'overlay', input: 'rgb(114, 25, 219)'});
     // Overlay with an image
     $('img').blend({mode: 'overlay', input: 'otherimage.jpg'});
+
+### Modes
+    
+- normal
+
+- darken
+- multiply
+- colorburn
+- linearburn
+
+- lighten
+- screen
+- colordodge
+- lineardodge
+
+- overlay
+- softlight
+- hardlight
