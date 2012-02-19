@@ -2,7 +2,7 @@
   $.fn.blend = function(options) {
     var defaults = {
       mode: 'overlay',
-      input: 'rgb(128, 128, 128)',
+      adjustment: 'rgb(128, 128, 128)',
       opacity: 1
     }
 
@@ -35,82 +35,90 @@
          return adj * base / 127.5;
         }
       }
-      
     };
 
     return this.each(function() {
       var $t = $(this);
 
       if ('getContext' in document.createElement('canvas')) {
-        var plate = new Image;
-        plate.src = $t.attr('src');
+        var input = new Image;
+        input.src = $t.attr('src');
         
-        if (options.input.match(/^rgb/)) {
-          plate.onload = applyRGBAValue;
+        if (options.adjustment.match(/^rgb/)) {
+          console.log('Apply color blending');
+          input.onload = applyRGBAValue;
         } else {
-          plate.onload = applyImage;
+          console.log('Apply image blending');
+          input.onload = applyImage;
         }
       }
 
       function applyRGBAValue() {
-        var rgb = options.input.match(/rgb\(([0-9]+), ?([0-9]+), ?([0-9]+)/);
+        var rgb = options.adjustment.match(/rgb\(([0-9]+), ?([0-9]+), ?([0-9]+)/);
         var r = rgb[1];
         var g = rgb[2];
         var b = rgb[3];
 
-        var canvas = document.createElement('canvas');
-        var image = canvas.getContext('2d');
+        var output = document.createElement('canvas');
+        var outputContext = output.getContext('2d');
 
-        canvas.width = plate.width;
-        canvas.height = plate.height;
-        image.drawImage(plate, 0, 0);
+        output.width = input.width;
+        output.height = input.height;
+        outputContext.drawImage(input, 0, 0);
 
-        data = image.getImageData(0, 0, canvas.width, canvas.height);
-        subpixels = data.data;
+        var outputImageData = outputContext.getImageData(0, 0, output.width, output.height);
+        var outputSubpixels = outputImageData.data;
 
         var mode = options.mode;
         var alpha = options.opacity;
-        var zed = 1 - alpha;
-        for(var i = 0, l = subpixels.length; i < l; i += 4) {
-          subpixels[i+0] = blenders[mode](subpixels[i+0], r);
-          subpixels[i+1] = blenders[mode](subpixels[i+1], g);
-          subpixels[i+2] = blenders[mode](subpixels[i+2], b);
+        for(var i = 0, l = outputSubpixels.length; i < l; i += 4) {
+          outputSubpixels[i+0] = blenders[mode](outputSubpixels[i+0], r);
+          outputSubpixels[i+1] = blenders[mode](outputSubpixels[i+1], g);
+          outputSubpixels[i+2] = blenders[mode](outputSubpixels[i+2], b);
         }
 
-        image.putImageData(data, 0, 0);
-        $t.replaceWith(canvas);
+        outputContext.putImageData(outputImageData, 0, 0);
+        $t.replaceWith(output);
       }
 
       function applyImage() {
-        var canvas = document.createElement('canvas');
-        var image = canvas.getContext('2d');
+        // Setup the output canvas, and prefil it with the input
+        // image. This is what will get blended.
+        var output = document.createElement('canvas');
+        var outputContext = output.getContext('2d');
+        output.width = input.width;
+        output.height = input.height;
+        outputContext.drawImage(input, 0, 0);
+        var outputImageData = outputContext.getImageData(0, 0, output.width, output.height);
 
-        canvas.width = plate.width;
-        canvas.height = plate.height;
-        image.drawImage(plate, 0, 0);
+        var outputSubpixels = outputImageData.data;
 
-        data = image.getImageData(0, 0, canvas.width, canvas.height);
-        subpixels = data.data;
+        // Load the adjustment mask image
+        var maskImage = new Image;
+        maskImage.src = options.adjustment;
+        maskImage.onload = function() {
+          // Bring the adjustment mask into canvas so we can access it's data
+          var adjustment = document.createElement('canvas');
+          var adjustmentContext = output.getContext('2d');
+          adjustment.width = input.width;
+          adjustment.height = input.height;
+          adjustmentContext.drawImage(maskImage, 0, 0);
+          var adjustmentImageData = adjustmentContext.getImageData(0, 0, adjustment.width, adjustment.height);
 
-        var adj_canvas = document.createElement('canvas');
-        var adj_image = adj_canvas.getContext('2d');
-        adj_image_src = new Image;
-        adj_image_src.src = options.input;
-        adj_image.drawImage(adj_image_src, 0, 0);
-        adj_data = adj_image.getImageData(0, 0, canvas.width, canvas.height);
-        adj_subpixels = adj_data.data;
+          var adjustmentSubpixels = adjustmentImageData.data;
 
-        var m = options.mode;
-        var a = options.opacity;
-        var z = 1 - a;
-        for(var i = 0, l = subpixels.length; i < l; i += 4) {
-          subpixels[i+0] = blenders[m](subpixels[i+0], adj_subpixels[i+0]);
-          subpixels[i+1] = blenders[m](subpixels[i+1], adj_subpixels[i+1]);
-          subpixels[i+2] = blenders[m](subpixels[i+2], adj_subpixels[i+2]);
+          // Do the blending
+          var mode = options.mode;
+          var alpha = options.opacity;
+          for(var i = 0, l = outputSubpixels.length; i < l; i += 4) {
+            outputSubpixels[i+0] = blenders[mode](outputSubpixels[i+0], adjustmentSubpixels[i+0]);
+            outputSubpixels[i+1] = blenders[mode](outputSubpixels[i+1], adjustmentSubpixels[i+1]);
+            outputSubpixels[i+2] = blenders[mode](outputSubpixels[i+2], adjustmentSubpixels[i+2]);
+          }
+
+          outputContext.putImageData(outputImageData, 0, 0);
+          $t.replaceWith(output);
         }
-
-        image.putImageData(data, 0, 0);
-        $t.replaceWith(canvas);
       }
     });
   }
