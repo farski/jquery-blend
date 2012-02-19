@@ -45,10 +45,8 @@
         input.src = $t.attr('src');
         
         if (options.adjustment.match(/^rgb/)) {
-          console.log('Apply color blending');
           input.onload = applyRGBAValue;
         } else {
-          console.log('Apply image blending');
           input.onload = applyImage;
         }
       }
