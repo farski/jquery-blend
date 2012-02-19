@@ -10,12 +10,12 @@
     var blenders = {
       normal: function(base, adj) { return adj; },
       // 
-      darken: function(base, adj) { return (base > adj) ? adj : base; },
+      darken: function(base, adj) { return Math.min(base, adj); },
       multiply: function(base, adj) { return ((base * adj) / 255); },
       colorburn: function(base, adj) { return 1; },
       linearburn: function(base, adj) { return ((base + adj) < 255) ? 0 : (base + adj - 255); },
       // 
-      lighten: function(base, adj) { return (base < adj) ? adj : base; },
+      lighten: function(base, adj) { return Math.max(base, adj); },
       screen: function(base, adj) { return (255 - (((255 - base) * (255 - adj)) / 255)); },
       colordodge: function(base, adj) { return ; },
       lineardodge: function(base, adj) { return Math.min(base + adj, 255); },
