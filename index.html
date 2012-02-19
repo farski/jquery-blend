@@ -6,7 +6,7 @@
     <script src='https://raw.github.com/farski/jquery-blend/master/jquery.blend.js'></script>
     <script>
       $(function() {
-        $('img').each(function() {
+        $('table img').each(function() {
           $(this).blend({mode: $(this).attr('data-blend-mode'), adjustment: $(this).attr('data-blend-adjustment')});
         });
       });
