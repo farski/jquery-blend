@@ -22,7 +22,11 @@
       // 
       overlay: function(base, adj) { return (base < 128) ? ((2 * base * adj) / 255) : (255 - (2 * (255 - base) * (255 - adj) / 255)); },
       softlight: function(base, adj) {
-        return (base < 128) ? ((2 * base * (adj * 0.8)) / 255) : (255 - (2 * (255 - base) * (255 - (adj * 0.7)) / 255));
+        if (base < 128) {
+          return ((adj>>1) + 64) * base * (2/255);
+        } else {
+          return 255 - (191 - (adj>>1)) (255 - base) * (2 / 255);
+        }
       },
       hardlight: function(base, adj) { return adj < 128 ? (2 * base * adj) / 255 : 255 - ((2 * (255 - base) * (255 - adj)) / 255); },
       //
