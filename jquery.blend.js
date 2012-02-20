@@ -18,7 +18,7 @@
       lighten: function(base, adj) { return Math.max(base, adj); },
       screen: function(base, adj) { return (255 - (((255 - base) * (255 - adj)) / 255)); },
       colordodge: function(base, adj) { return adj >= 255 ? 255 : Math.min(base * 255 / (255 - adj), 255); },
-      lineardodge: function(base, adj) { return Math.min((base*1 + adj*1), 255); },
+      lineardodge: function(base, adj) { return Math.min((base + adj), 255); },
       // 
       overlay: function(base, adj) { return (base < 128) ? ((2 * base * adj) / 255) : (255 - (2 * (255 - base) * (255 - adj) / 255)); },
       softlight: function(base, adj) {
@@ -50,9 +50,9 @@
 
       function applyRGBAValue() {
         var rgb = options.adjustment.match(/rgb\(([0-9]+), ?([0-9]+), ?([0-9]+)/);
-        var r = rgb[1];
-        var g = rgb[2];
-        var b = rgb[3];
+        var r = parseInt(rgb[1], 10);
+        var g = parseInt(rgb[2], 10);
+        var b = parseInt(rgb[3], 10);
 
         var output = document.createElement('canvas');
         var outputContext = output.getContext('2d');
