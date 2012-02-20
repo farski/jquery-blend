@@ -1,3 +1,17 @@
+/*
+ * Blend Plugin for jQuery JavaScript Library
+ * http://farski.github.com/jquery-blend
+ *
+ * Copyright (c) 2012 Chris Kalafarski
+ * Dual licensed under the MIT and GPL licenses.
+ *  - http://www.opensource.org/licenses/mit-license.php
+ *  - http://www.gnu.org/copyleft/gpl.html
+ *
+ * Author: Chris Kalafarski
+ * Version: 1.0/0
+ * Date: 19 February 2012
+ */
+
 (function($) {
   $.fn.blend = function(options) {
     var defaults = {
