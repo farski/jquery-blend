@@ -8,7 +8,7 @@
  *  - http://www.gnu.org/copyleft/gpl.html
  *
  * Author: Chris Kalafarski
- * Version: 1.0/0
+ * Version: 1.0.0
  * Date: 19 February 2012
  */
 
