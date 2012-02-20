@@ -1,0 +1,5 @@
+You may use jquery-blend under the terms of either the MIT License or the GNU General Public License (GPL) Version 2.
+
+More information:
+http://en.wikipedia.org/wiki/MIT_License
+http://en.wikipedia.org/wiki/GNU_General_Public_License
