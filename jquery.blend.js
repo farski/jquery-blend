@@ -28,13 +28,7 @@
            return adj - adj * ((127.5 - base) / 127.5) * (0.5 - Math.abs(adj - 127.5) / 255);
         }
       },
-      hardlight: function(base, adj) {
-        if (base > 127.5){
-         return adj + (255 - adj) * ((base - 127.5) / 127.5);
-        } else{
-         return adj * base / 127.5;
-        }
-      },
+      hardlight: function(base, adj) { return adj < 128 ? (2 * base * adj) / 255 : 255 - ((2 * (255 - base) * (255 - adj)) / 255); },
       //
       difference: function(base, adj) { return Math.abs(base - adj); },
       exclusion: function(base, adj) { return 255 - (((255 - base) * (255 - adj) / 255) + (base * adj / 255)); }
