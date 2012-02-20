@@ -17,8 +17,8 @@
       // 
       lighten: function(base, adj) { return Math.max(base, adj); },
       screen: function(base, adj) { return (255 - (((255 - base) * (255 - adj)) / 255)); },
-      colordodge: function(base, adj) { return adj >= 255? 255 : Math.min(base * 255 / (255 - adj), 255); },
-      lineardodge: function(base, adj) { return Math.min(base + adj, 255); },
+      colordodge: function(base, adj) { return adj >= 255 ? 255 : Math.min(base * 255 / (255 - adj), 255); },
+      lineardodge: function(base, adj) { return base; },
       // 
       overlay: function(base, adj) { return (base < 128) ? ((2 * base * adj) / 255) : (255 - (2 * (255 - base) * (255 - adj) / 255)); },
       softlight: function(base, adj) {
