@@ -39,7 +39,8 @@
       hardlight: function(base, adj) { return adj < 128 ? (2 * base * adj) / 255 : 255 - ((2 * (255 - base) * (255 - adj)) / 255); },
       //
       difference: function(base, adj) { return Math.abs(base - adj); },
-      exclusion: function(base, adj) { return 255 - (((255 - base) * (255 - adj) / 255) + (base * adj / 255)); }
+      exclusion: function(base, adj) { return 255 - (((255 - base) * (255 - adj) / 255) + (base * adj / 255)); },
+      subtract: function(base, adj) { return Math.max((base - adj), 0); }
     };
 
     return this.each(function() {
