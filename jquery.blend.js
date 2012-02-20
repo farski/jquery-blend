@@ -36,7 +36,8 @@
         }
       },
       //
-      difference: function(base, adj) { return Math.abs(base - adj); }
+      difference: function(base, adj) { return Math.abs(base - adj); },
+      exclusion: function(base, adj) { return 255 - (((255 - base) * (255 - adj) / 255) + (base * adj / 255)); }
     };
 
     return this.each(function() {
