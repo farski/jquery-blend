@@ -22,10 +22,12 @@
       // 
       overlay: function(base, adj) { return (base < 128) ? ((2 * base * adj) / 255) : (255 - (2 * (255 - base) * (255 - adj) / 255)); },
       softlight: function(base, adj) {
-        if (base > 127.5){
-           return adj + (255 - adj) * ((base - 127.5) / 127.5) * (0.5 - Math.abs(adj - 127.5) / 255);
+        if (base >= 128){
+          // Screen highligts
+          return (255 - (((255 - base) * (255 - adj)) / 255));
         } else {
-           return adj - adj * ((127.5 - base) / 127.5) * (0.5 - Math.abs(adj - 127.5) / 255);
+          // Multiply shadow
+          return ((base * adj) / 255);
         }
       },
       hardlight: function(base, adj) { return adj < 128 ? (2 * base * adj) / 255 : 255 - ((2 * (255 - base) * (255 - adj)) / 255); },
