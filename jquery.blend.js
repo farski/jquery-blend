@@ -13,7 +13,7 @@
       darken: function(base, adj) { return Math.min(base, adj); },
       multiply: function(base, adj) { return ((base * adj) / 255); },
       colorburn: function(base, adj) { return adj <= 0 ? 0 : Math.max(255 - ((255 - base) * 255 / adj), 0); },
-      linearburn: function(base, adj) { return ((base + adj) < 255) ? 0 : (base + adj - 255); },
+      linearburn: function(base, adj) { return Math.max(0, (base + adj - 255)); },
       // 
       lighten: function(base, adj) { return Math.max(base, adj); },
       screen: function(base, adj) { return (255 - (((255 - base) * (255 - adj)) / 255)); },
