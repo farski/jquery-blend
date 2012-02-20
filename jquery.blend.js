@@ -113,7 +113,7 @@
           // Do the blending
           var mode = options.mode;
           var alpha = options.opacity;
-          for(var i = 0, l = outputSubpixels.length; i < l; i += 4) {
+          for(var i = 0; i < outputSubpixels.length; i += 4) {
             outputSubpixels[i+0] = blenders[mode](outputSubpixels[i+0], adjustmentSubpixels[i+0]);
             outputSubpixels[i+1] = blenders[mode](outputSubpixels[i+1], adjustmentSubpixels[i+1]);
             outputSubpixels[i+2] = blenders[mode](outputSubpixels[i+2], adjustmentSubpixels[i+2]);
