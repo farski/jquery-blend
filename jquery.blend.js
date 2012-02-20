@@ -21,13 +21,7 @@
       lineardodge: function(base, adj) { return Math.min((base + adj), 255); },
       // 
       overlay: function(base, adj) { return (base < 128) ? ((2 * base * adj) / 255) : (255 - (2 * (255 - base) * (255 - adj) / 255)); },
-      softlight: function(base, adj) {
-        if (base < 128) {
-          return ((adj>>1) + 64) * base * (2/255);
-        } else {
-          return 255 - (191 - (adj>>1)) * (255 - base) * (2 / 255);
-        }
-      },
+      softlight: function(base, adj) { return (base < 128) ? (((adj>>1) + 64) * base * (2/255)) : (255 - (191 - (adj>>1)) * (255 - base) * (2 / 255)); },
       hardlight: function(base, adj) { return adj < 128 ? (2 * base * adj) / 255 : 255 - ((2 * (255 - base) * (255 - adj)) / 255); },
       //
       difference: function(base, adj) { return Math.abs(base - adj); },
