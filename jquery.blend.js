@@ -13,43 +13,6 @@
  */
 
 (function($) {
-  function Blender(algorithm, precision) {
-    this.algorithm = algorithm;
-    this.precision = precision;
-
-    this.process = function(base, adj) {
-      var self = this;
-      if (this.precision == 'subpixel') {
-        // do a different thing for each subpixel
-      } else {
-        return [this.algorithm(base[0], adj[0]), this.algorithm(base[1], adj[1]), this.algorithm(base[2], adj[2])];
-      }
-    }
-  }
-
-  var blenders = {
-    normal: new Blender(function(base, adj) { return adj; }),
-    // 
-    darken: new Blender(function(base, adj) { return Math.min(base, adj); }),
-    multiply: new Blender(function(base, adj) { return ((base * adj) / 255); }),
-    colorburn: new Blender(function(base, adj) { return adj <= 0 ? 0 : Math.max(255 - ((255 - base) * 255 / adj), 0); }),
-    linearburn: new Blender(function(base, adj) { return Math.max(0, (base + adj - 255)); }),
-    // 
-    lighten: new Blender(function(base, adj) { return Math.max(base, adj); }),
-    screen: new Blender(function(base, adj) { return (255 - (((255 - base) * (255 - adj)) / 255)); }),
-    colordodge: new Blender(function(base, adj) { return adj >= 255 ? 255 : Math.min(base * 255 / (255 - adj), 255); }),
-    lineardodge: new Blender(function(base, adj) { return Math.min((base + adj), 255); }),
-    // 
-    overlay: new Blender(function(base, adj) { return (base < 128) ? ((2 * base * adj) / 255) : (255 - (2 * (255 - base) * (255 - adj) / 255)); }),
-    softlight: new Blender(function(base, adj) { return (base < 128) ? (((adj>>1) + 64) * base * (2/255)) : (255 - (191 - (adj>>1)) * (255 - base) * (2 / 255)); }),
-    hardlight: new Blender(function(base, adj) { return adj < 128 ? (2 * base * adj) / 255 : 255 - ((2 * (255 - base) * (255 - adj)) / 255); }),
-    //
-    difference: new Blender(function(base, adj) { return Math.abs(base - adj); }),
-    exclusion: new Blender(function(base, adj) { return 255 - (((255 - base) * (255 - adj) / 255) + (base * adj / 255)); }),
-    subtract: new Blender(function(base, adj) { return Math.max((base - adj), 0); })
-  };
-
-
   $.fn.blend = function(options) {
     var defaults = {
       mode: 'normal',
@@ -57,6 +20,42 @@
       opacity: 1
     }
     options = $.extend(defaults, options);
+
+    function Blender(algorithm, precision) {
+      this.algorithm = algorithm;
+      this.precision = precision;
+
+      this.process = function(base, adj) {
+        var self = this;
+        if (this.precision == 'subpixel') {
+          // do a different thing for each subpixel
+        } else {
+          return [this.algorithm(base[0], adj[0]), this.algorithm(base[1], adj[1]), this.algorithm(base[2], adj[2])];
+        }
+      }
+    }
+
+    var blenders = {
+      normal: new Blender(function(base, adj) { return adj; }),
+      // 
+      darken: new Blender(function(base, adj) { return Math.min(base, adj); }),
+      multiply: new Blender(function(base, adj) { return ((base * adj) / 255); }),
+      colorburn: new Blender(function(base, adj) { return adj <= 0 ? 0 : Math.max(255 - ((255 - base) * 255 / adj), 0); }),
+      linearburn: new Blender(function(base, adj) { return Math.max(0, (base + adj - 255)); }),
+      // 
+      lighten: new Blender(function(base, adj) { return Math.max(base, adj); }),
+      screen: new Blender(function(base, adj) { return (255 - (((255 - base) * (255 - adj)) / 255)); }),
+      colordodge: new Blender(function(base, adj) { return adj >= 255 ? 255 : Math.min(base * 255 / (255 - adj), 255); }),
+      lineardodge: new Blender(function(base, adj) { return Math.min((base + adj), 255); }),
+      // 
+      overlay: new Blender(function(base, adj) { return (base < 128) ? ((2 * base * adj) / 255) : (255 - (2 * (255 - base) * (255 - adj) / 255)); }),
+      softlight: new Blender(function(base, adj) { return (base < 128) ? (((adj>>1) + 64) * base * (2/255)) : (255 - (191 - (adj>>1)) * (255 - base) * (2 / 255)); }),
+      hardlight: new Blender(function(base, adj) { return adj < 128 ? (2 * base * adj) / 255 : 255 - ((2 * (255 - base) * (255 - adj)) / 255); }),
+      //
+      difference: new Blender(function(base, adj) { return Math.abs(base - adj); }),
+      exclusion: new Blender(function(base, adj) { return 255 - (((255 - base) * (255 - adj) / 255) + (base * adj / 255)); }),
+      subtract: new Blender(function(base, adj) { return Math.max((base - adj), 0); })
+    };
 
     return this.each(function() {
       if ('getContext' in document.createElement('canvas')) {
