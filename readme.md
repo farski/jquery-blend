@@ -30,3 +30,4 @@ Blending modes for jquery
 
 - difference
 - exclusion
+- subtract
