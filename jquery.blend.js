@@ -36,6 +36,7 @@
     }
 
     var blenders = {
+      none: new Blender(function(base, adj) { return base; }),
       normal: new Blender(function(base, adj) { return adj; }),
       // 
       darken: new Blender(function(base, adj) { return Math.min(base, adj); }),
